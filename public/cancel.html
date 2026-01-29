@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Thanh toán thất bại - PayOS</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Signika:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <div class="main-box">
+        <!-- Error Icon -->
+        <div class="error-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                <path fill="white"
+                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z" />
+            </svg>
+        </div>
+
+        <!-- Title -->
+        <h1 class="payment-title error">Thanh toán thất bại</h1>
+
+        <!-- Message -->
+        <p class="payment-message">
+            Rất tiếc, giao dịch của bạn không thành công.<br>
+            Vui lòng thử lại hoặc chọn phương thức thanh toán khác.
+        </p>
+
+        <!-- Error Info -->
+        <div class="product-card-result" style="background: linear-gradient(135deg, #fff5f5 0%, #fff 100%);">
+            <div class="product-details">
+                <div class="detail-item">
+                    <div class="detail-label">Trạng thái</div>
+                    <div class="detail-value" style="color: #e93654;">✗ Đã hủy</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Số sản phẩm</div>
+                    <div class="detail-value" id="items-count">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">Số tiền</div>
+                    <div class="detail-value" id="amount-display" style="color: #999; text-decoration: line-through;">-
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reasons -->
+        <div style="text-align: left; margin-bottom: 24px; padding: 16px; background: #f8f9fa; border-radius: 10px;">
+            <p style="font-size: 13px; color: #666; margin-bottom: 8px;"><strong>Nguyên nhân có thể:</strong></p>
+            <ul style="font-size: 13px; color: #888; padding-left: 20px; line-height: 1.8;">
+                <li>Số dư tài khoản không đủ</li>
+                <li>Thông tin thẻ không chính xác</li>
+                <li>Giao dịch bị từ chối bởi ngân hàng</li>
+                <li>Hết thời gian thanh toán</li>
+            </ul>
+        </div>
+
+        <!-- Support -->
+        <p class="payment-message" style="margin-bottom: 24px;">
+            Cần hỗ trợ? Liên hệ<br>
+            <a href="mailto:support@payos.vn">support@payos.vn</a>
+        </p>
+
+        <!-- Return Button -->
+        <a href="/" class="return-btn" id="return-page-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="20" height="20">
+                <path fill="currentColor"
+                    d="M17.65 6.35C16.2 4.9 14.21 4 12 4c-4.42 0-7.99 3.58-7.99 8s3.57 8 7.99 8c3.73 0 6.84-2.55 7.73-6h-2.08c-.82 2.33-3.04 4-5.65 4-3.31 0-6-2.69-6-6s2.69-6 6-6c1.66 0 3.14.69 4.22 1.78L13 11h7V4l-2.35 2.35z" />
+            </svg>
+            Thử lại thanh toán
+        </a>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div class="footer-logo">
+                Powered by <strong style="color: #ff6900;">PayOS</strong>
+            </div>
+            <p>© 2026 PayOS Demo - NQA Tech</p>
+        </div>
+    </div>
+
+    <script>
+        // Parse URL parameters
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                amount: params.get('amount'),
+                items: params.get('items'),
+                orderCode: params.get('orderCode')
+            };
+        }
+
+        // Format currency
+        function formatPrice(price) {
+            return new Intl.NumberFormat('vi-VN').format(price) + '₫';
+        }
+
+        // Display payment info
+        document.addEventListener('DOMContentLoaded', function () {
+            const { amount, items } = getUrlParams();
+
+            if (amount) {
+                document.getElementById('amount-display').textContent = formatPrice(parseInt(amount));
+            }
+
+            if (items) {
+                document.getElementById('items-count').textContent = items + ' sản phẩm';
+            }
+        });
+    </script>
+</body>
+
+</html>
